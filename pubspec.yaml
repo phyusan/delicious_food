@@ -39,9 +39,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  curved_navigation_bar: ^1.0.3
   flutter_lints: ^2.0.0
   riverpod: ^2.3.6
+
    
 hooks_riverpod: ^2.3.6
  
@@ -60,8 +61,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+   - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,62 +1,97 @@
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatelessWidget {
+import 'home_screen.dart';
+
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  final GlobalKey _bottomNavigationKey = GlobalKey();
+  late Animation<double> animation;
+  late AnimationController controller;
+
+  @override
   Widget build(BuildContext context) {
+    int page = 0;
     return Scaffold(
-        appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.green.shade400,
-            title: const Center(child: Text('Welcome to Food House'))),
-        body: Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              height: double.infinity,
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10, left: 10),
-                child: Column(
-                  children: [
-                    const Text('Featured',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600)),
-                    SingleChildScrollView(
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width: 200,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.amber,
-                                  ),
-                                  child: const Padding(
-                                    padding:
-                                        EdgeInsets.only(right: 20, bottom: 15),
-                                    child: Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Icon(Icons.heart_broken_rounded,
-                                            color: Colors.black)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: BottomNavigationBar(
+              selectedItemColor: const Color(0xff617A55),
+              selectedIconTheme: const IconThemeData(color: Color(0xff617A55)),
+              elevation: 100,
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: const Color(0xffA4D0A4),
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home, size: _selectedIndex == 0 ? 30 : 20),
+                    label: "Home"),
+                BottomNavigationBarItem(
+                    icon:
+                        Icon(Icons.person, size: _selectedIndex == 1 ? 30 : 20),
+                    label: "Chief"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.chat, size: _selectedIndex == 2 ? 30 : 20),
+                    label: "Menu"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.settings,
+                        size: _selectedIndex == 3 ? 30 : 20),
+                    label: "Settings"),
+              ],
             ),
+          ),
+        ),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.green.shade400,
+          title: const Center(
+            child: Text('Welcome to Food House'),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    print('click');
+                  });
+                },
+                child: const Icon(Icons.shopping_cart),
+              ),
+            )
           ],
-        ));
+        ),
+        body: bottomNavBarItems(_selectedIndex));
+  }
+
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      print(_selectedIndex);
+    });
+  }
+
+  Widget bottomNavBarItems(int index) {
+    if (index == 0) {
+      return const HomeScreenWidget();
+    } else if (index == 1) {
+      return Container(color: Colors.blue);
+    } else if (index == 2) {
+      return Container(color: Colors.purple);
+    } else if (index == 3) {
+      return Container();
+    } else {
+      return Container();
+    }
   }
 }
