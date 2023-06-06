@@ -10,9 +10,9 @@ class TraditionalCardWidget extends StatefulWidget {
 }
 
 class _TraditionalCardWidgetState extends State<TraditionalCardWidget> {
+  bool heart = false;
   @override
   Widget build(BuildContext context) {
-    bool heart = false;
     return Padding(
       padding: const EdgeInsets.only(top: 10, right: 10),
       child: Stack(
@@ -26,19 +26,18 @@ class _TraditionalCardWidgetState extends State<TraditionalCardWidget> {
                 alignment: Alignment.bottomLeft,
                 child: InkWell(
                   onTap: () {
-                    setState(() {
-                      heart = !heart;
-                      print(heart);
-                    });
+                    heart = !heart;
+                    print(heart);
                   },
                   child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white70),
-                    width: 50,
-                    height: 50,
-                    child: const Icon(Icons.favorite_outline),
-                  ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white70),
+                      width: 50,
+                      height: 50,
+                      child: const Icon(
+                        Icons.favorite_outline,
+                      )),
                 )),
           ),
           const Padding(

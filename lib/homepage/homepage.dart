@@ -1,3 +1,4 @@
+import 'package:delicious_menu/menu/menuscreen.dart';
 import 'package:flutter/material.dart';
 
 import 'home_screen.dart';
@@ -61,9 +62,10 @@ class _MyHomePageState extends State<MyHomePage>
               padding: const EdgeInsets.only(right: 20),
               child: InkWell(
                 onTap: () {
-                  setState(() {
-                    print('click');
-                  });
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MenuScreen()));
                 },
                 child: const Icon(Icons.shopping_cart),
               ),

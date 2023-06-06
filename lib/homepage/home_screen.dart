@@ -2,11 +2,16 @@ import 'package:delicious_menu/homepage/widgets/popular_receipt_widget.dart';
 import 'package:delicious_menu/homepage/widgets/traditional_card_widget.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreenWidget extends StatelessWidget {
+class HomeScreenWidget extends StatefulWidget {
   const HomeScreenWidget({
     super.key,
   });
 
+  @override
+  State<HomeScreenWidget> createState() => _HomeScreenWidgetState();
+}
+
+class _HomeScreenWidgetState extends State<HomeScreenWidget> {
   @override
   Widget build(BuildContext context) {
     return Stack(
