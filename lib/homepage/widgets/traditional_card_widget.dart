@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 class TraditionalCardWidget extends StatefulWidget {
   const TraditionalCardWidget({
     super.key,
+    required this.setmenuphoto,
+    required this.setmenuname,
   });
-
+  final String setmenuphoto;
+  final String setmenuname;
   @override
   State<TraditionalCardWidget> createState() => _TraditionalCardWidgetState();
 }
@@ -19,7 +22,7 @@ class _TraditionalCardWidgetState extends State<TraditionalCardWidget> {
         children: [
           ClipRRect(
               borderRadius: BorderRadius.circular(25),
-              child: const Image(image: AssetImage('assets/images/card2.png'))),
+              child: Image(image: AssetImage(widget.setmenuphoto))),
           Padding(
             padding: const EdgeInsets.only(top: 120, left: 220, right: 10),
             child: Align(
@@ -27,6 +30,7 @@ class _TraditionalCardWidgetState extends State<TraditionalCardWidget> {
                 child: InkWell(
                   onTap: () {
                     heart = !heart;
+                    setState(() {});
                     print(heart);
                   },
                   child: Container(
@@ -35,15 +39,18 @@ class _TraditionalCardWidgetState extends State<TraditionalCardWidget> {
                           color: Colors.white70),
                       width: 50,
                       height: 50,
-                      child: const Icon(
-                        Icons.favorite_outline,
-                      )),
+                      child: heart
+                          ? const Icon(
+                              Icons.favorite_outline,
+                            )
+                          : const Icon(Icons.favorite_rounded,
+                              color: Colors.red)),
                 )),
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 130, left: 15, bottom: 20),
-            child: Text('Breakfast SetMenu',
-                style: TextStyle(
+          Padding(
+            padding: const EdgeInsets.only(top: 130, left: 15, bottom: 20),
+            child: Text(widget.setmenuname,
+                style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w900,
                     color: Colors.white)),
