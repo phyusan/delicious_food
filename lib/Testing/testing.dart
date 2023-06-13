@@ -36,29 +36,69 @@ class _TestingState extends State<Testing> {
               child: const Icon(Icons.arrow_back)),
           title: const Text('Create Note'),
         ),
-        body: Column(
-          children: [
-            TextFormField(
-              controller: nameController,
-            ),
-            const SizedBox(height: 10),
-            InkWell(
-              onTap: () async {
-                //print(_sqliteService);
-                await databasesqliteservice
-                    .reateItem(Note(id: 1, description: 'Deloy'));
-                print(Note);
+        body: FutureBuilder(
+            future: databasesqliteservice.notes(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var dataresult = snapshot.data;
 
-                setState(() {});
-              },
-              child: Container(
-                  width: 200,
-                  height: 50,
-                  color: Colors.yellow,
-                  child: const Center(child: Text('Add'))),
-            ),
-            const SizedBox(width: 200, height: 100, child: Text('TT')),
-          ],
-        ));
+                return ListView.builder(
+                    itemCount: dataresult!.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          TextFormField(
+                            controller: nameController,
+                          ),
+                          const SizedBox(height: 10),
+                          InkWell(
+                            onTap: () async {
+                              //print(_sqliteService);
+                              await databasesqliteservice
+                                  .reateItem(Note(id: 1, description: 'Deloy'));
+                              print(Note);
+
+                              setState(() {});
+                            },
+                            child: Container(
+                                width: 200,
+                                height: 50,
+                                color: Colors.yellow,
+                                child: const Center(child: Text('Add'))),
+                          ),
+                          SizedBox(
+                              width: 200,
+                              height: 100,
+                              child: Text(dataresult[index].description)),
+                        ],
+                      );
+                    });
+              }
+              return const Center(child: CircularProgressIndicator());
+              // return Column(
+              //   children: [
+              //     TextFormField(
+              //       controller: nameController,
+              //     ),
+              //     const SizedBox(height: 10),
+              //     InkWell(
+              //       onTap: () async {
+              //         //print(_sqliteService);
+              //         await databasesqliteservice
+              //             .reateItem(Note(id: 1, description: 'Deloy'));
+              //         print(Note);
+
+              //         setState(() {});
+              //       },
+              //       child: Container(
+              //           width: 200,
+              //           height: 50,
+              //           color: Colors.yellow,
+              //           child: const Center(child: Text('Add'))),
+              //     ),
+              //     const SizedBox(width: 200, height: 100, child: Text('TT')),
+              //   ],
+              // );
+            }));
   }
 }

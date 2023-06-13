@@ -1,8 +1,8 @@
-import 'package:delicious_menu/homepage/service/menu_model.dart';
+import 'package:delicious_menu/homepage/service/menu_order_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class SqliteService {
+class MenuOrder {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
 
@@ -10,53 +10,56 @@ class SqliteService {
       join(path, 'database.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE Notes(id INTEGER PRIMARY KEY AUTOINCREMENT,  description TEXT NOT NULL)",
+          "CREATE TABLE Order(id INTEGER PRIMARY KEY AUTOINCREMENT,productname TEXT NOT NULL, productphoto TEXT, price INT,qty INT)",
         );
       },
       version: 1,
     );
   }
 
-  Future<void> reateItem(Note note) async {
+  Future<void> insertorder(OrderModel order) async {
     int result = 0;
     final Database db = await initializeDB();
-    final id = await db.insert('Notes', note.toMap(),
+    final id = await db.insert('Order', order.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<List<Note>> notes() async {
+  Future<List<OrderModel>> orderresult() async {
     final Database db = await initializeDB();
-    final List<Map<String, dynamic>> maps = await db.query('Notes');
+    final List<Map<String, dynamic>> maps = await db.query('Orders');
     return List.generate(maps.length, (i) {
-      return Note(
+      return OrderModel(
         id: maps[i]['id'],
-        description: maps[i]['description'],
+        productname: maps[i]['productname'],
+        productphoto: maps[i]['productphoto'],
+        price: maps[i]['price'],
+        qty: maps[i]['qty'],
       );
     });
   }
 
-  Future<void> updateNote(Note note) async {
+  Future<void> updateOrder(OrderModel order) async {
     // Get a reference to the database.
     final Database db = await initializeDB();
 
     // Update the given Dog.
     await db.update(
-      'dogs',
-      note.toMap(),
+      'orders',
+      order.toMap(),
       // Ensure that the Dog has a matching id.
       where: 'id = ?',
       // Pass the Dog's id as a whereArg to prevent SQL injection.
-      whereArgs: [note.id],
+      whereArgs: [order.id],
     );
   }
 
-  Future<void> deleteNote(int id) async {
+  Future<void> deleteOrder(int id) async {
     // Get a reference to the database.
     final Database db = await initializeDB();
 
     // Remove the Dog from the database.
     await db.delete(
-      'dogs',
+      'orders',
       // Use a `where` clause to delete a specific dog.
       where: 'id = ?',
       // Pass the Dog's id as a whereArg to prevent SQL injection.
