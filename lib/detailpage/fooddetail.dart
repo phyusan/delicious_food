@@ -1,6 +1,8 @@
 import 'package:delicious_menu/homepage/domain/food_data.dart';
+import 'package:delicious_menu/ordercard/order_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class DetailFoodWidget extends StatefulWidget {
   const DetailFoodWidget({
@@ -13,6 +15,7 @@ class DetailFoodWidget extends StatefulWidget {
 }
 
 class _DetailFoodWidgetState extends State<DetailFoodWidget> {
+  double? _ratingValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,25 +32,48 @@ class _DetailFoodWidgetState extends State<DetailFoodWidget> {
                       borderRadius: const BorderRadius.horizontal(
                           left: Radius.circular(20),
                           right: Radius.circular(20))),
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 5, right: 5),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 5, right: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.add),
-                        Text('20'),
-                        Icon(CupertinoIcons.minus)
+                        InkWell(
+                            onTap: () {
+                              widget.detailfood.qty = widget.detailfood.qty + 1;
+                              setState(() {});
+                            },
+                            child: const Icon(Icons.add)),
+                        Text(widget.detailfood.qty.toString()),
+                        InkWell(
+                            onTap: () {
+                              if (widget.detailfood.qty > 0) {
+                                widget.detailfood.qty =
+                                    widget.detailfood.qty - 1;
+                              }
+                              setState(() {});
+                            },
+                            child: const Icon(CupertinoIcons.minus))
                       ],
                     ),
                   )),
               const SizedBox(width: 30),
-              Container(
-                  width: 50,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.green.shade500,
-                      borderRadius: BorderRadius.circular(15)),
-                  child: const Center(child: Text('ADD')))
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OrderCardList(
+                                ordercart: widget.detailfood,
+                              )));
+                },
+                child: Container(
+                    width: 50,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.green.shade500,
+                        borderRadius: BorderRadius.circular(15)),
+                    child: const Center(child: Text('ADD'))),
+              )
             ],
           ),
         ),
@@ -87,15 +113,15 @@ class _DetailFoodWidgetState extends State<DetailFoodWidget> {
                                   icon: const Icon(Icons.arrow_back))))
                     ],
                   ),
-                  const Padding(
-                      padding: EdgeInsets.only(left: 10, top: 20),
-                      child: Text('Mocha Pizza',
-                          style: TextStyle(
+                  Padding(
+                      padding: const EdgeInsets.only(left: 10, top: 20),
+                      child: Text(widget.detailfood.productname!,
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600))),
-                  const Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10),
-                      child: Text('12000 Ks',
-                          style: TextStyle(
+                  Padding(
+                      padding: const EdgeInsets.only(top: 10, left: 10),
+                      child: Text('${widget.detailfood.price!} Ks',
+                          style: const TextStyle(
                               fontSize: 18,
                               color: Colors.green,
                               fontWeight: FontWeight.w600))),
@@ -198,6 +224,28 @@ class _DetailFoodWidgetState extends State<DetailFoodWidget> {
                           label: Text('Review',
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w500)))),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 10),
+                      child: RatingBar(
+                          initialRating: 2.5,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          ratingWidget: RatingWidget(
+                              full:
+                                  const Icon(Icons.star, color: Colors.orange),
+                              half: const Icon(
+                                Icons.star_half,
+                                color: Colors.orange,
+                                size: 5,
+                              ),
+                              empty: const Icon(Icons.star_outline,
+                                  color: Colors.orange, size: 5)),
+                          onRatingUpdate: (value) {
+                            setState(() {
+                              _ratingValue = value;
+                            });
+                          })),
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: SizedBox(

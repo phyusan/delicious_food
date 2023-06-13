@@ -20,6 +20,7 @@ class _FoodWidgetState extends State<FoodWidget> {
       padding: const EdgeInsets.only(right: 20),
       child: InkWell(
         onTap: () {
+          print(widget.food);
           Navigator.push(
               context,
               MaterialPageRoute(

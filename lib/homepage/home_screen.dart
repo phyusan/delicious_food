@@ -1,3 +1,4 @@
+import 'package:delicious_menu/Testing/testing.dart';
 import 'package:delicious_menu/commonwidget/row_text_widget.dart';
 import 'package:delicious_menu/homepage/domain/food_data.dart';
 import 'package:delicious_menu/homepage/widgets/food.dart';
@@ -58,15 +59,23 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                   const SizedBox(height: 10),
                   const RowTextWidget(Text1: 'Category', Text2: 'See all'),
                   const SizedBox(height: 10),
-                  const Row(
+                  Row(
                     children: [
-                      Chip(
-                        backgroundColor: Colors.green,
-                        label: Text('Morning Breakfast',
-                            style: TextStyle(color: Colors.white)),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Testing()));
+                        },
+                        child: const Chip(
+                          backgroundColor: Colors.green,
+                          label: Text('Morning Breakfast',
+                              style: TextStyle(color: Colors.white)),
+                        ),
                       ),
-                      SizedBox(width: 20),
-                      Chip(
+                      const SizedBox(width: 20),
+                      const Chip(
                           backgroundColor: Colors.green,
                           label: Text(
                             'Dinner',
