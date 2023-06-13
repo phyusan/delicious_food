@@ -1,4 +1,3 @@
-import 'package:delicious_menu/menu/detail_order.dart';
 import 'package:delicious_menu/menu/domain/menucart_data.dart';
 import 'package:delicious_menu/menu/widgets/menu_cart.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +18,8 @@ class _MenuScreenState extends State<MenuScreen> {
           padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
           child: InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const DetailOrder()));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => const DetailOrder()));
             },
             child: Container(
                 height: 50,

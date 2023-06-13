@@ -1,20 +1,18 @@
-import 'package:delicious_menu/homepage/domain/food_data.dart';
-import 'package:delicious_menu/ordercard/order_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class DetailFoodWidget extends StatefulWidget {
-  const DetailFoodWidget({
+class Populardetail extends StatefulWidget {
+  const Populardetail({
     super.key,
-    required this.detailfood,
   });
-  final FoodData detailfood;
+
   @override
-  State<DetailFoodWidget> createState() => _DetailFoodWidgetState();
+  State<Populardetail> createState() => _PopulardetailWidgetState();
 }
 
-class _DetailFoodWidgetState extends State<DetailFoodWidget> {
+class _PopulardetailWidgetState extends State<Populardetail> {
+  int qty = 0;
   double? _ratingValue;
   @override
   Widget build(BuildContext context) {
@@ -39,16 +37,15 @@ class _DetailFoodWidgetState extends State<DetailFoodWidget> {
                       children: [
                         InkWell(
                             onTap: () {
-                              widget.detailfood.qty = widget.detailfood.qty + 1;
+                              qty = qty + 1;
                               setState(() {});
                             },
                             child: const Icon(Icons.add)),
-                        Text(widget.detailfood.qty.toString()),
+                        Text(qty.toString()),
                         InkWell(
                             onTap: () {
-                              if (widget.detailfood.qty > 0) {
-                                widget.detailfood.qty =
-                                    widget.detailfood.qty - 1;
+                              if (qty > 0) {
+                                qty = qty - 1;
                               }
                               setState(() {});
                             },
@@ -59,12 +56,12 @@ class _DetailFoodWidgetState extends State<DetailFoodWidget> {
               const SizedBox(width: 30),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OrderCardList(
-                                ordercart: widget.detailfood,
-                              )));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => OrderCardList(
+                  //               ordercart: widget.detailfood,
+                  //             )));
                 },
                 child: Container(
                     width: 50,
@@ -87,15 +84,15 @@ class _DetailFoodWidgetState extends State<DetailFoodWidget> {
                 children: [
                   Stack(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                           width: double.infinity,
                           height: 300,
                           child: ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
+                            borderRadius: BorderRadius.vertical(
                                 bottom: Radius.circular(20)),
                             child: Image(
-                                image:
-                                    AssetImage(widget.detailfood.productphoto!),
+                                image: AssetImage(
+                                    'assets/images/europe food1.png'),
                                 fit: BoxFit.cover),
                           )),
                       Padding(
@@ -113,15 +110,15 @@ class _DetailFoodWidgetState extends State<DetailFoodWidget> {
                                   icon: const Icon(Icons.arrow_back))))
                     ],
                   ),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 20),
-                      child: Text(widget.detailfood.productname!,
-                          style: const TextStyle(
+                  const Padding(
+                      padding: EdgeInsets.only(left: 10, top: 20),
+                      child: Text('Moconar Pizza',
+                          style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600))),
-                  Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 10),
-                      child: Text('${widget.detailfood.price!} Ks',
-                          style: const TextStyle(
+                  const Padding(
+                      padding: EdgeInsets.only(top: 10, left: 10),
+                      child: Text('18000 Ks',
+                          style: TextStyle(
                               fontSize: 18,
                               color: Colors.green,
                               fontWeight: FontWeight.w600))),

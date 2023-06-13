@@ -1,9 +1,9 @@
-import 'package:delicious_menu/Testing/testing.dart';
 import 'package:delicious_menu/commonwidget/row_text_widget.dart';
 import 'package:delicious_menu/homepage/domain/food_data.dart';
 import 'package:delicious_menu/homepage/widgets/food.dart';
 import 'package:delicious_menu/homepage/widgets/popular_receipt_widget.dart';
 import 'package:delicious_menu/homepage/widgets/traditional_card_widget.dart';
+import 'package:delicious_menu/menu/menuscreen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenWidget extends StatefulWidget {
@@ -66,7 +66,7 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Testing()));
+                                  builder: (context) => const MenuScreen()));
                         },
                         child: const Chip(
                           backgroundColor: Colors.green,
@@ -75,12 +75,20 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                         ),
                       ),
                       const SizedBox(width: 20),
-                      const Chip(
-                          backgroundColor: Colors.green,
-                          label: Text(
-                            'Dinner',
-                            style: TextStyle(color: Colors.white),
-                          )),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MenuScreen()));
+                        },
+                        child: const Chip(
+                            backgroundColor: Colors.green,
+                            label: Text(
+                              'Dinner',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
