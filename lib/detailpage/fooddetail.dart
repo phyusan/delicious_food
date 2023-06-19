@@ -1,4 +1,5 @@
 import 'package:delicious_menu/homepage/domain/food_data.dart';
+import 'package:delicious_menu/menu/detail_order.dart';
 import 'package:delicious_menu/ordercard/order_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ class _DetailFoodWidgetState extends State<DetailFoodWidget> {
                       children: [
                         InkWell(
                             onTap: () {
+                              widget.detailfood.ordercheck = true;
                               widget.detailfood.qty = widget.detailfood.qty + 1;
                               setState(() {});
                             },
@@ -47,6 +49,7 @@ class _DetailFoodWidgetState extends State<DetailFoodWidget> {
                         InkWell(
                             onTap: () {
                               if (widget.detailfood.qty > 0) {
+                                widget.detailfood.ordercheck = true;
                                 widget.detailfood.qty =
                                     widget.detailfood.qty - 1;
                               }
@@ -62,8 +65,8 @@ class _DetailFoodWidgetState extends State<DetailFoodWidget> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => OrderCardList(
-                                ordercart: widget.detailfood,
+                          builder: (context) => const DetailOrder(
+                              // ordercart: widget.detailfood,
                               )));
                 },
                 child: Container(

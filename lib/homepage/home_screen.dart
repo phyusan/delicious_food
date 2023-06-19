@@ -6,6 +6,8 @@ import 'package:delicious_menu/homepage/widgets/traditional_card_widget.dart';
 import 'package:delicious_menu/menu/menuscreen.dart';
 import 'package:flutter/material.dart';
 
+import 'widgets/category_widget.dart';
+
 class HomeScreenWidget extends StatefulWidget {
   const HomeScreenWidget({
     super.key,
@@ -61,34 +63,24 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      InkWell(
-                        onTap: () {
+                      CategoryWidget(
+                        text: 'Morning Breakfast',
+                        click: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const MenuScreen()));
                         },
-                        child: const Chip(
-                          backgroundColor: Colors.green,
-                          label: Text('Morning Breakfast',
-                              style: TextStyle(color: Colors.white)),
-                        ),
                       ),
                       const SizedBox(width: 20),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MenuScreen()));
-                        },
-                        child: const Chip(
-                            backgroundColor: Colors.green,
-                            label: Text(
-                              'Dinner',
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      ),
+                      CategoryWidget(
+                          text: 'Dinner',
+                          click: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const MenuScreen()));
+                          })
                     ],
                   ),
                   const SizedBox(height: 10),

@@ -18,6 +18,7 @@ class _MenuScreenState extends State<MenuScreen> {
           padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
           child: InkWell(
             onTap: () {
+              Navigator.pop(context);
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => const DetailOrder()));
             },
