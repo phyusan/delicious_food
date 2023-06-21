@@ -1,3 +1,5 @@
+import 'package:delicious_menu/detailorderpayment/detail_order.dart';
+import 'package:delicious_menu/homepage/service/menu_order_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -56,12 +58,10 @@ class _PopulardetailWidgetState extends State<Populardetail> {
               const SizedBox(width: 30),
               InkWell(
                 onTap: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => OrderCardList(
-                  //               ordercart: widget.detailfood,
-                  //             )));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DetailOrder()));
                 },
                 child: Container(
                     width: 50,

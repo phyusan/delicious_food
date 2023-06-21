@@ -25,11 +25,14 @@ class _OrdercartshowState extends State<Ordercartshow> {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                child: Container(
-                  width: 80,
-                  height: 100,
-                  color: Colors.amber,
-                ),
+                child: SizedBox(
+                    width: 80,
+                    height: 100,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image(
+                            image: AssetImage(widget.order.productphoto!),
+                            fit: BoxFit.cover))),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 100, top: 10, bottom: 10),

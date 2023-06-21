@@ -1,4 +1,4 @@
-import 'package:delicious_menu/menu/menuscreen.dart';
+import 'package:delicious_menu/detailorderpayment/detail_order.dart';
 import 'package:flutter/material.dart';
 
 import 'home_screen.dart';
@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage>
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const MenuScreen()));
+                          builder: (context) => const DetailOrder()));
                 },
                 child: const Icon(Icons.shopping_cart),
               ),

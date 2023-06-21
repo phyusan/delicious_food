@@ -1,3 +1,5 @@
+import 'package:delicious_menu/detailorderpayment/domain/order_food.dart';
+import 'package:delicious_menu/homepage/homepage.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/order_item_cart.dart';
@@ -32,9 +34,11 @@ class _DetailOrderState extends State<DetailOrder> {
               child: SizedBox(
                 height: 300,
                 child: ListView.builder(
-                  itemCount: 4,
+                  itemCount: orderdata.length,
                   itemBuilder: (context, index) {
-                    return const Ordercartshow();
+                    return Ordercartshow(
+                      order: orderdata[index],
+                    );
                   },
                 ),
               ),
@@ -45,7 +49,7 @@ class _DetailOrderState extends State<DetailOrder> {
                     width: 100,
                     height: 40,
                     decoration: BoxDecoration(
-                        color: Colors.amber,
+                        color: Colors.green.shade200,
                         borderRadius: BorderRadius.circular(20)),
                     child: Center(
                       child: InkWell(
@@ -54,7 +58,7 @@ class _DetailOrderState extends State<DetailOrder> {
                             style: TextStyle(
                                 letterSpacing: 1,
                                 fontSize: 18,
-                                fontWeight: FontWeight.w400)),
+                                fontWeight: FontWeight.w500)),
                       ),
                     ))),
             Padding(
@@ -112,18 +116,67 @@ class _DetailOrderState extends State<DetailOrder> {
                           ),
                           const SizedBox(height: 20),
                           Center(
-                            child: Container(
-                                width: 200,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.black),
-                                child: const Center(
-                                    child: Text('Payment',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w500)))),
+                            child: InkWell(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        icon: Icon(Icons.check_circle_outlined,
+                                            color: Colors.green.shade200,
+                                            size: 50),
+                                        title: const Text("Order Successful"),
+                                        content: const Text(
+                                            "Your Payment is paid 234000 Ks"),
+                                        actions: [
+                                          InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const MyHomePage()));
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 3,
+                                                        horizontal: 3),
+                                                child: Container(
+                                                  width: double.infinity,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    color:
+                                                        Colors.green.shade200,
+                                                  ),
+                                                  child: const Center(
+                                                      child: Text("OK",
+                                                          style: TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500))),
+                                                ),
+                                              ))
+                                        ],
+                                      );
+                                    });
+                              },
+                              child: Container(
+                                  width: 200,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.green.shade200),
+                                  child: const Center(
+                                      child: Text('Payment',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500)))),
+                            ),
                           )
                         ],
                       ),
