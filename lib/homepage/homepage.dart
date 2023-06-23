@@ -1,4 +1,4 @@
-import 'package:delicious_menu/detailorderpayment/detail_order.dart';
+import 'package:delicious_menu/category/categoryhome.dart';
 import 'package:flutter/material.dart';
 
 import 'home_screen.dart';
@@ -20,58 +20,100 @@ class _MyHomePageState extends State<MyHomePage>
   Widget build(BuildContext context) {
     int page = 0;
     return Scaffold(
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: BottomNavigationBar(
-              selectedItemColor: const Color(0xff617A55),
-              selectedIconTheme: const IconThemeData(color: Color(0xff617A55)),
-              elevation: 100,
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: const Color(0xffA4D0A4),
-              currentIndex: _selectedIndex,
-              onTap: _onItemTapped,
-              items: [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.home, size: _selectedIndex == 0 ? 30 : 20),
-                    label: "Home"),
-                BottomNavigationBarItem(
-                    icon:
-                        Icon(Icons.person, size: _selectedIndex == 1 ? 30 : 20),
-                    label: "Chief"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.chat, size: _selectedIndex == 2 ? 30 : 20),
-                    label: "Menu"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.settings,
-                        size: _selectedIndex == 3 ? 30 : 20),
-                    label: "Settings"),
-              ],
-            ),
+        bottomNavigationBar: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          child: BottomNavigationBar(
+            selectedItemColor: const Color(0xff617A55),
+            selectedIconTheme: const IconThemeData(color: Color(0xff617A55)),
+            elevation: 100,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: const Color(0xffA4D0A4),
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            items: [
+              BottomNavigationBarItem(
+                  icon: Container(
+                      width: 40,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: _selectedIndex == 0
+                            ? Colors.white
+                            : const Color(0xffA4D0A4),
+                      ),
+                      child: Icon(Icons.home,
+                          size: _selectedIndex == 0 ? 30 : 25)),
+                  // Icon(Icons.home, size: _selectedIndex == 0 ? 30 : 20),
+                  label: "Home"),
+              BottomNavigationBarItem(
+                  icon: Container(
+                      width: 40,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: _selectedIndex == 1
+                            ? Colors.white
+                            : const Color(0xffA4D0A4),
+                      ),
+                      child: Icon(Icons.category,
+                          size: _selectedIndex == 0 ? 30 : 25)),
+                  // Icon(Icons.home, size: _selectedIndex == 0 ? 30 : 20),
+                  label: "Category"),
+              BottomNavigationBarItem(
+                  icon: Container(
+                      width: 40,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: _selectedIndex == 2
+                            ? Colors.white
+                            : const Color(0xffA4D0A4),
+                      ),
+                      child: Icon(Icons.favorite_outline,
+                          size: _selectedIndex == 0 ? 30 : 25)),
+                  // Icon(Icons.home, size: _selectedIndex == 0 ? 30 : 20),
+                  label: "Favourite"),
+              BottomNavigationBarItem(
+                  icon: Container(
+                      width: 40,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: _selectedIndex == 3
+                            ? Colors.white
+                            : const Color(0xffA4D0A4),
+                      ),
+                      child: Icon(Icons.person,
+                          size: _selectedIndex == 0 ? 30 : 25)),
+                  // Icon(Icons.home, size: _selectedIndex == 0 ? 30 : 20),
+                  label: "Profile"),
+            ],
           ),
         ),
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.green.shade400,
-          title: const Center(
-            child: Text('Welcome to Food House'),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DetailOrder()));
-                },
-                child: const Icon(Icons.shopping_cart),
-              ),
-            )
-          ],
-        ),
+        // appBar: AppBar(
+        //   elevation: 0,
+        //   backgroundColor: Colors.green.shade400,
+        //   title: Center(
+        //     child: _selectedIndex == 1
+        //         ? const Text('Testing')
+        //         : const Text('Welcome to Food House'),
+        //   ),
+        //   actions: [
+        //     Padding(
+        //       padding: const EdgeInsets.only(right: 20),
+        //       child: InkWell(
+        //         onTap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                   builder: (context) => const DetailOrder()));
+        //         },
+        //         child: const Icon(Icons.shopping_cart),
+        //       ),
+        //     )
+        //   ],
+        // ),
         body: bottomNavBarItems(_selectedIndex));
   }
 
@@ -87,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage>
     if (index == 0) {
       return const HomeScreenWidget();
     } else if (index == 1) {
-      return Container(color: Colors.blue);
+      return const CategoryPage();
     } else if (index == 2) {
       return Container(color: Colors.purple);
     } else if (index == 3) {
