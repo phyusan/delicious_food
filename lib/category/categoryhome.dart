@@ -1,3 +1,4 @@
+import 'package:delicious_menu/category/domain/category_data.dart';
 import 'package:flutter/material.dart';
 
 class CategoryPage extends StatelessWidget {
@@ -13,96 +14,76 @@ class CategoryPage extends StatelessWidget {
             child: Text('Welcome to Food House'),
           ),
         ),
-        body: GridView.count(
-          crossAxisCount: 3,
-          children: const [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: MenuCardWidget(),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: MenuCardWidget(),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: MenuCardWidget(),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: MenuCardWidget(),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: MenuCardWidget(),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: MenuCardWidget(),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: MenuCardWidget(),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: MenuCardWidget(),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: MenuCardWidget(),
-            )
-          ],
-        ));
+        body: Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: GridView.count(
+              crossAxisCount: 3,
+              crossAxisSpacing: 4.0,
+              mainAxisSpacing: 8.0,
+              children: List.generate(categorydata.length, (index) {
+                return MenuCardWidget(
+                    productname: categorydata[index].categoryname!,
+                    productphoto: categorydata[index].categoryphoto!,
+                    price: categorydata[index].price!);
+              }),
+            )));
   }
 }
 
 class MenuCardWidget extends StatelessWidget {
   const MenuCardWidget({
     super.key,
+    required this.productname,
+    required this.productphoto,
+    required this.price,
   });
-
+  final String productname;
+  final String productphoto;
+  final int price;
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: 120,
-        height: 130,
-        color: Colors.white,
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color(0xff98D8AA),
-                ),
-                width: double.infinity,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: SizedBox(
-                width: 60,
-                height: 60,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(60),
-                  child: const Image(
-                      image: AssetImage('assets/images/europe food1.png'),
-                      fit: BoxFit.cover),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+          width: 120,
+          height: 130,
+          color: Colors.white,
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: const Color.fromARGB(255, 204, 242, 186),
+                  ),
+                  width: double.infinity,
                 ),
               ),
-            ),
-            const Padding(
-                padding: EdgeInsets.only(top: 70, left: 10),
-                child: Text('Noodle Salad')),
-            const Padding(
-                padding: EdgeInsets.only(
-                  left: 20,
-                  top: 90,
+              Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(60),
+                    child: Image(
+                        image: AssetImage(productphoto), fit: BoxFit.cover),
+                  ),
                 ),
-                child: Text('6000 Ks'))
-          ],
-        ));
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Align(
+                    alignment: Alignment.center, child: Text(productname)),
+              ),
+              Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text('${price.toString()} Ks')))
+            ],
+          )),
+    );
   }
 }
