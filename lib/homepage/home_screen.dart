@@ -1,5 +1,6 @@
 import 'package:delicious_menu/commonwidget/row_text_widget.dart';
 import 'package:delicious_menu/detailorderpayment/detail_order.dart';
+import 'package:delicious_menu/homepage/domain/banner.dart';
 import 'package:delicious_menu/homepage/domain/food_data.dart';
 import 'package:delicious_menu/homepage/widgets/food.dart';
 import 'package:delicious_menu/homepage/widgets/popular_receipt_widget.dart';
@@ -18,7 +19,12 @@ class HomeScreenWidget extends StatefulWidget {
   State<HomeScreenWidget> createState() => _HomeScreenWidgetState();
 }
 
-class _HomeScreenWidgetState extends State<HomeScreenWidget> {
+class _HomeScreenWidgetState extends State<HomeScreenWidget>
+    with SingleTickerProviderStateMixin {
+  final PageController _pageController = PageController(initialPage: 0);
+
+  // the index of the current page
+  int _activePage = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,26 +66,63 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                     const Text('Featured',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w600)),
-                    const SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          TraditionalCardWidget(
-                            setmenuname: 'Breakfast MenuSet',
-                            setmenuphoto: 'assets/images/card2.png',
-                          ),
-                          SizedBox(width: 20),
-                          TraditionalCardWidget(
-                            setmenuname: 'Seafood MenuSet',
-                            setmenuphoto: 'assets/images/europe food1.png',
-                          ),
-                          SizedBox(width: 20),
-                          TraditionalCardWidget(
-                            setmenuname: 'Food MenuSet',
-                            setmenuphoto: 'assets/images/morning food1.png',
-                          ),
-                        ],
+                    SizedBox(
+                      height: 180,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        onPageChanged: (int page) {
+                          setState(() {
+                            _activePage = page;
+                          });
+                        },
+                        itemCount: bannerList.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext context, int index) {
+                          var bannerindex = bannerList[index];
+                          var scale = _activePage == index ? 1.0 : 0.8;
+                          return TweenAnimationBuilder(
+                            duration: const Duration(milliseconds: 2000),
+                            tween: Tween(begin: scale, end: scale),
+                            curve: Curves.bounceOut,
+                            builder: (BuildContext context, double value,
+                                Widget? child) {
+                              return Transform.scale(
+                                scale: value,
+                                child: child,
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: TraditionalCardWidget(
+                                  setmenuphoto: bannerList[index].image!,
+                                  setmenuname: bannerList[index].text!),
+                            ),
+                          );
+                        },
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List<Widget>.generate(
+                          bannerList.length,
+                          (index) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: InkWell(
+                                  onTap: () {
+                                    _pageController.animateToPage(index,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.easeIn);
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 5,
+                                    backgroundColor: _activePage == index
+                                        ? Colors.green
+                                        : Colors.grey,
+                                  ),
+                                ),
+                              )),
                     ),
                     const SizedBox(height: 10),
                     const RowTextWidget(Text1: 'Category', Text2: 'See all'),
